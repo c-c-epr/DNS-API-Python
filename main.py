@@ -32,12 +32,13 @@ def dns_lookup(
 
     try:
         answers = dns_resolver.resolve(domain, record_type)
-
+        records = [r.to_text() for r in answers]
+        records.sort()  # 先排序
         return {
             "domain": domain,
             "type": record_type,
             "resolver": resolver,
-            "records": [r.to_text() for r in answers],
+            "records": records,
         }
 
     except dns.resolver.NoAnswer:
