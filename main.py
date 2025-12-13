@@ -6,11 +6,12 @@ app = FastAPI()
 
 ALLOWED_TYPES = {"A", "AAAA", "MX", "TXT", "NS", "CNAME"}
 
+
 @app.get("/dns/lookup")
 def dns_lookup(
     domain: str = Query(..., example="google.com"),
     record_type: str = Query("A", alias="type"),
-    resolver: str = Query("8.8.8.8", example="101.101.101.101")
+    resolver: str = Query("8.8.8.8", example="101.101.101.101"),
 ):
     record_type = record_type.upper()
 
@@ -36,7 +37,7 @@ def dns_lookup(
             "domain": domain,
             "type": record_type,
             "resolver": resolver,
-            "records": [r.to_text() for r in answers]
+            "records": [r.to_text() for r in answers],
         }
 
     except dns.resolver.NoAnswer:
@@ -44,7 +45,7 @@ def dns_lookup(
             "domain": domain,
             "type": record_type,
             "resolver": resolver,
-            "records": []
+            "records": [],
         }
 
     except dns.resolver.NXDOMAIN:
