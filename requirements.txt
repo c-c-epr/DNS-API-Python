@@ -1,3 +1,3 @@
-fastapi
-uvicorn
-dnspython
+fastapi==0.128.0
+uvicorn==0.40.0
+dnspython==2.8.0
